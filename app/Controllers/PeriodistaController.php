@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\PeriodistaModel;
 use CodeIgniter\RESTful\ResourceController;
 
 class PeriodistaController extends ResourceController
@@ -13,7 +14,14 @@ class PeriodistaController extends ResourceController
      */
     public function index()
     {
-        echo 'Index de PeriodistaController';
+        $periodistas = model(PeriodistaModel::class);
+
+        $datos = [
+            'titulo'        => 'Periodistas registrados en el sistema',
+            'periodistas'   => $periodistas->getPeriodistas(),
+        ];
+
+        return view('periodistas/index', $datos);
     }
 
     /**

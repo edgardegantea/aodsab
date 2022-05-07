@@ -4,17 +4,17 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class PeriodistaModel extends Model
+class Categoria extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'periodistas';
+    protected $table            = 'categorias';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['nombre', 'apellidos', 'area', 'bio', 'email', 'telefono'];
+    protected $allowedFields    = [];
 
     // Dates
     protected $useTimestamps = false;
@@ -39,13 +39,4 @@ class PeriodistaModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
-
-
-    public function getPeriodistas($slug = false) {
-        if ($slug === false) {
-            return $this->orderBy('id', 'desc')->findAll();
-        }
-
-        return $this->where(['slug' => $slug])->first();
-    }
 }

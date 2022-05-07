@@ -25,14 +25,14 @@ class NewsController extends BaseController
         $model = model(NewsModel::class);
 
         $data = [
-            'title' => 'Noticias en versión CARD',
+            'title' => 'Noticias en versiÃ³n CARD',
             'news'  => $model->getNews()
         ];
 
         return view('news/cards', $data);
     }
 
-    // Aquí comienza la función create()
+    // AquÃ­ comienza la funciÃ³n create()
     public function create() 
     {
         $model = model(NewsModel::class);
@@ -56,7 +56,7 @@ class NewsController extends BaseController
             return view('/news/create');
         }
     }
-    // Aquí finaliza la función create()
+    // AquÃ­ finaliza la funciÃ³n create()
 
 
     public function edit($id = null)
