@@ -9,6 +9,7 @@ class Home extends BaseController
         $data = [
             'title' => 'Aplicación de noticias'
         ];
+        
         return view('welcome_message', $data);
     }
 }

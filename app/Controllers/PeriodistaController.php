@@ -2,55 +2,71 @@
 
 namespace App\Controllers;
 
+use App\Models\PeriodistaModel;
 use CodeIgniter\RESTful\ResourceController;
 
 class PeriodistaController extends ResourceController
 {
-    /**
-     * Return an array of resource objects, themselves in array format
-     *
-     * @return mixed
-     */
+    
     public function index()
     {
-        echo 'Index de PeriodistaController';
+        $periodistas = model(PeriodistaModel::class);
+
+        $datos = [
+            'titulo'        => 'Periodistas registrados en el sistema',
+            'periodistas'   => $periodistas->getPeriodistas(),
+        ];
+
+        return view('periodistas/index', $datos);
     }
 
-    /**
-     * Return the properties of a resource object
-     *
-     * @return mixed
-     */
+    
     public function show($id = null)
     {
-        //
+        return view('periodistas/show');
     }
 
-    /**
-     * Return a new resource object, with default properties
-     *
-     * @return mixed
-     */
+    
     public function new()
     {
         //
     }
 
-    /**
-     * Create a new resource object, from "posted" parameters
-     *
-     * @return mixed
-     */
-    public function create()
+    public function create() 
     {
-        //
-    }
+        $model = model(PeriodistaModel::class);
 
-    /**
-     * Return the editable properties of a resource object
-     *
-     * @return mixed
-     */
+        if ($this->request->getMethod() === 'post' && $this->validate([
+
+            'nombre'    => 'required|min_length[3]|max_length[50]',
+            'apellidos' => 'required|min_length[3]|max_length[50]',
+            'area'      => 'required|min_length[3]|max_length[50]',
+            'bio'       => 'required|min_length[20]|max_length[2000]',
+            'email'     => 'required|max_length[100]',
+            'telefono'  => 'required|min_length[7]|max_length[15]'
+        ])) {
+
+            $data = [
+                'foto'      => $this->request->getPost('foto'),
+                'nombre'    => $this->request->getPost('nombre'), 
+                'slug'      => url_title($this->request->getPost('nombre'), '-', true),
+                'apellidos' => $this->request->getPost('apellidos'),
+                'area'      => $this->request->getPost('area'),
+                'bio'       => $this->request->getPost('bio'),
+                'email'     => $this->request->getPost('email'),
+                'telefono'  => $this->request->getPost('telefono'),
+            ];
+
+            $model->insert($data);
+
+            return redirect()->to('/periodista');
+        } else {
+            return view('/periodistas/create');
+        }
+    }
+    // Aquí finaliza la función create()
+
+    
     public function edit($id = null)
     {
         //

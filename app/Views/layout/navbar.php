@@ -16,6 +16,9 @@
       <a class="navbar-item" href="/periodista/">
         Periodistas
       </a>
+      <a class="navbar-item" href="/categoria/">
+        Categorías
+      </a>
     </div>
   </div>
 </nav>

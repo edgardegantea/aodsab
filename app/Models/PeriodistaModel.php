@@ -39,4 +39,13 @@ class PeriodistaModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+
+    public function getPeriodistas($slug = false) {
+        if ($slug === false) {
+            return $this->orderBy('id', 'desc')->findAll();
+        }
+
+        return $this->where(['slug' => $slug])->first();
+    }
 }
